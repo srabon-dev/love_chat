@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "157973073886",
+    "project_id": "love-chat-flutter",
+    "storage_bucket": "love-chat-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157973073886:android:f3fbfe3eaf02d7179a174f",
+        "android_client_info": {
+          "package_name": "com.srabon_dev.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuSmIsidQTkGcqx394QehAKL4muJT6Bxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,30 +14,30 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          elevation: 10,
+          backgroundColor: AppColors.pink5,
           title: Padding(
-            padding: const EdgeInsets.only(top: 24.0),
+            padding: const EdgeInsets.only(top: 0.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(Icons.favorite,size: 32,color: AppColors.pink100,),
+                const Icon(Icons.favorite,size: 24,color: AppColors.pink100,),
                 const SizedBox(width: 5,),
                 Text("Love Chat".tr,style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 28
+                  fontSize: 24
                 ),),
               ],
             ),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 20,top: 24.0),
+              padding: const EdgeInsets.only(right: 20,top: 0.0),
               child: Container(
-                height: 50,
-                width: 50,
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: AppColors.pink100,width: 3),
                 ),
                 child: const Icon(Icons.notifications_rounded,size: 20,color: AppColors.pink100,),
@@ -51,30 +51,6 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 20,),
-                  Container(
-                    height: 300,
-                    width: constraints.maxWidth,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: isDarkMode? Border.all(color: AppColors.white100,width: 3):Border.all(color: AppColors.pink100,width: 3),
-                      color:  isDarkMode? AppColors.black100 : AppColors.white100,
-                      boxShadow: isDarkMode? [] :[
-                        const BoxShadow(
-                          offset: Offset(-4, -4),
-                          blurRadius: 3,
-                          spreadRadius: 2,
-                          color: AppColors.black20
-                        ),
-                        const BoxShadow(
-                          offset: Offset(4, 4),
-                          blurRadius: 3,
-                          spreadRadius: 2,
-                          color: AppColors.black40
-                        )
-                      ]
-                    ),
-                  ),
                 ],
               ),
             );

@@ -59,13 +59,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
       focusNode: widget.focusNode,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
-      style: Theme.of(context).textTheme.labelSmall,
+      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+        color: AppColors.pink100
+      ),
       onChanged: widget.onChanged,
+      minLines: 1,
       maxLines: widget.maxLines,
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,
+
       decoration: const InputDecoration().applyDefaults(Theme.of(context).inputDecorationTheme).copyWith(
         hintText: widget.hintText,
+        hintStyle: TextStyle(
+          color: AppColors.pink100
+        ),
         suffixIcon: widget.isPassword ? GestureDetector(
             onTap: toggle,
             child: Padding(

@@ -34,7 +34,7 @@ class AppRoute{
     GetPage(name: homeScreen, page: () => const HomeScreen()),
     GetPage(name: settingsScreen, page: () => const SettingsScreen()),
     GetPage(name: navBar, page: () => const NavBar()),
-    GetPage(name: chatScreen, page: () => const ChatScreen()),
+    GetPage(name: chatScreen, page: () => ChatScreen()),
     GetPage(name: messageScreen, page: () => const MessageScreen()),
   ];
 }

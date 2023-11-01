@@ -12,6 +12,12 @@ Map<String, String> english = {
   "Forget Password?" :   "Forget Password?",
   "Don’t have an account?" :   "Don’t have an account?",
   "Create now" :   "Create now",
+  "This field can not be empty" :   "This field can not be empty",
+  "Please enter a valid email" :   "Please enter a valid email",
+  "Password should be more than 6 characters" :   "Password should be more than 6 characters",
+  "Success" :   "Success",
+  "Error" :   "Error",
+  "Login Successful" :   "Login Successful",
 
   //Register
   "Register" :   "Register",
@@ -20,6 +26,9 @@ Map<String, String> english = {
   "Confirm Password" :   "Confirm Password",
   "Name" :   "Name",
   "Phone Number" :   "Phone Number",
+  "Password do not match" :   "Password do not match",
+  "Phone Number should be 11 characters" :   "Phone Number should be 11 characters",
+  "Account Create Successful" :   "Account Create Successful",
 
   //Forget
   "Continue" :   "Continue",
@@ -35,6 +44,9 @@ Map<String, String> english = {
   //Chat
   "Chat" : "Chat",
   "Search" : "Search",
+  "Something went wrong" : "Something went wrong",
+  "Document does not exist" : "Document does not exist",
+  "loading..." : "loading...",
 
   //Settings
   "Settings" : "Settings",
@@ -44,6 +56,6 @@ Map<String, String> english = {
   "Upgrade Account" : "Upgrade Account",
   "Log Out" : "Log Out",
 
-
-  //
+  //Message Screen
+  "write your message" : "write your message",
 };

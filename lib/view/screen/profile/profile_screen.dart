@@ -11,6 +11,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -31,10 +32,10 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Container(
                     padding: const EdgeInsets.all(8.0),
-                    height: 200,
-                    width: 200,
+                    height: 120,
+                    width: 120,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(60),
                       border: Border.all(color: AppColors.pink100,width: 5),
                     ),
                     child: ClipRRect(borderRadius: BorderRadius.circular(100),

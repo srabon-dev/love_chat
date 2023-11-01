@@ -18,7 +18,7 @@ class _NavBarState extends State<NavBar> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const ChatScreen(),
+    ChatScreen(),
     const ProfileScreen(),
     const SettingsScreen()
   ];

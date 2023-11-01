@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:chat_app/core/app_route.dart';
 import 'package:chat_app/utils/constants/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3),(){
-      Get.offAndToNamed(AppRoute.loginScreen);
+      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      if(firebaseAuth.currentUser!= null){
+        Get.offAndToNamed(AppRoute.navBar);
+      }else{
+        Get.offAndToNamed(AppRoute.loginScreen);
+      }
     });
     super.initState();
   }
