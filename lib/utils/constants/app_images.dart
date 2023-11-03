@@ -8,5 +8,7 @@ class AppImages{
   static const String trash = "assets/images/trash.svg";
   static const String translate = "assets/images/translate.svg";
   static const String membership = "assets/images/Yellow.svg";
+  //Message Screen BG
+  static const String bgChat = "assets/images/bg_chat.jpg";
 
 }

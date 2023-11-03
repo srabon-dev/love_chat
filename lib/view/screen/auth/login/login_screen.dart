@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       controller.signInWithEmailAndPassword();
                                     }
                                   },
-                                  child: controller.isLoading? const Center(child: CircularProgressIndicator(),): Text("Login".tr),
+                                  child: controller.isLoading? const Center(child: CircularProgressIndicator(color: AppColors.white100,),): Text("Login".tr),
                                 ),
                               ),
                           const SizedBox(

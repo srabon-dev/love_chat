@@ -43,10 +43,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
-                      return Text('Something went wrong'.tr);
+                      return Center(child: Text('Something went wrong'.tr));
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text("Loading...".tr);
+                      return Center(child: Text("Loading...".tr));
                     }
                     return Expanded(
                       child: ListView(
@@ -54,11 +54,16 @@ class _ChatScreenState extends State<ChatScreen> {
                             .map((DocumentSnapshot document) {
                           Map<String, dynamic> data =
                               document.data()! as Map<String, dynamic>;
-                          if(firebaseAuth.currentUser?.email != data['email']){
+                          if (firebaseAuth.currentUser?.email !=
+                              data['email']) {
                             return GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoute.messageScreen,
-                                    arguments: [data['email'], data['uid']]);
+                                Get.toNamed(AppRoute.messageScreen, arguments: [
+                                  data['email'],
+                                  data['uid'],
+                                  data['name'],
+                                  data['imageUrl']
+                                ]);
                               },
                               child: ListTile(
                                 title: Text(
@@ -75,17 +80,22 @@ class _ChatScreenState extends State<ChatScreen> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(25),
                                     child: CachedNetworkImage(
-                                      imageUrl:
-                                      "https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png",
+                                      imageUrl: data['imageUrl'] != null &&
+                                              data['imageUrl'] != ''
+                                          ? data['imageUrl']
+                                          : "https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png",
                                       fit: BoxFit.fill,
                                       errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                          const Icon(
+                                            Icons.person,
+                                            color: AppColors.pink100,
+                                          ),
                                     ),
                                   ),
                                 ),
                               ),
                             );
-                          }else{
+                          } else {
                             return const SizedBox();
                           }
                         }).toList(),

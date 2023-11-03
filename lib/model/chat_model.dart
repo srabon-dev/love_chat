@@ -24,7 +24,7 @@ class MessageModel {
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
     senderId: json["senderId"],
     senderEmail: json["senderEmail"],
-    receiverId: json["receiverrId"],
+    receiverId: json["receiverId"],
     message: json["message"],
     timeStamp: json["timeStamp"],
   );

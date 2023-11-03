@@ -1,4 +1,4 @@
-import 'package:chat_app/view/screen/message/chat_model/chat_model.dart';
+import 'package:chat_app/model/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -36,6 +36,6 @@ class ChatController extends GetxController{
     ids.sort();
     String chatRoomId = ids.join('_');
     return firebaseFirestore.collection("chat_room").
-    doc(chatRoomId).collection('message').orderBy("timeStamp", descending: false).snapshots();
+    doc(chatRoomId).collection('message').orderBy("timeStamp", descending: true).snapshots();
   }
 }
