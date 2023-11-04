@@ -37,6 +37,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: GetBuilder<ProfileController>(
                 builder: (controller) {
+                  print(data?['email']??"Error");
                   return Column(
                     children: [
                       const SizedBox(height: 20,),
@@ -91,10 +92,13 @@ class _EditProfileState extends State<EditProfile> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomTextField(
+                      data?['email'] == '' && data?['phone'] != ''?CustomTextField(
+                        controller: controller.emailController,
+                        hintText: "Email",
+                      ) : CustomTextField(
                         controller: controller.phoneController,
-                        hintText: data?['phone']??"Phone Number",
-                      ),
+                        hintText: "Phone Number",
+                      ) ,
                       const SizedBox(
                         height: 24,
                       ),
@@ -102,13 +106,13 @@ class _EditProfileState extends State<EditProfile> {
                         width: constraints.maxWidth,
                         child: ElevatedButton(
                           onPressed: () {
-                            if(controller.nameController.text == '' && controller.phoneController.text == ''){
+                            if(controller.nameController.text == '' && controller.emailController.text == '' && controller.phoneController.text == ''){
                               if(controller.image != null){
                                 controller.updatePicture();
                               }else{
                                 Get.snackbar("Error", "Please Select Image");
                               }
-                            }else if(controller.nameController.text != '' && controller.phoneController.text != '' && controller.image != null){
+                            }else if(controller.nameController.text != '' && controller.phoneController.text != '' && controller.image != null && controller.emailController.text == ''){
                               controller.updateProfile();
                             }else if(controller.nameController.text != '' && controller.phoneController.text != ''){
                               controller.updateNameAndPhone();

@@ -21,18 +21,12 @@ class _MessageScreenState extends State<MessageScreen> {
   final TextEditingController messageController = TextEditingController();
   ScrollController scrollController = ScrollController();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  String receiverId = '';
-  String receiverEmail = '';
-  String receiverName = '';
-  String receiverImage = '';
+  Map<String,dynamic>? data;
 
   @override
   void initState() {
     Get.put(ChatController());
-    receiverEmail = Get.arguments[0];
-    receiverId = Get.arguments[1];
-    receiverName = Get.arguments[2];
-    receiverImage = Get.arguments[3];
+    data = Get.arguments;
     super.initState();
   }
 
@@ -102,63 +96,23 @@ class _MessageScreenState extends State<MessageScreen> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(18),
                                 child: CachedNetworkImage(
-                                  imageUrl: receiverImage== ''?"https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png":receiverImage,
+                                  imageUrl: data?['imageUrl']== ''?"https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png":data?['imageUrl'],
                                   fit: BoxFit.fill,
                                   errorWidget: (context, url, error) =>
                                   const Icon(Icons.person),
                                 ),
                               ),
                             ),
-                            title: Text(receiverName,maxLines: 1,style: const TextStyle(color: AppColors.white100),),
-                            subtitle: Text(receiverEmail,maxLines: 1,style: const TextStyle(color: AppColors.white100),),
+                            title: Text(data?['name']??"",maxLines: 1,style: const TextStyle(color: AppColors.white100),),
+                            subtitle: Text(data?['email']??data?['phone']??"",maxLines: 1,style: const TextStyle(color: AppColors.white100),),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: MediaQuery.of(context).size.width,
-                  //   padding: const EdgeInsets.only(bottom: 18, top: 44),
-                  //   alignment: Alignment.centerLeft,
-                  //   decoration: const BoxDecoration(
-                  //     color: AppColors.pink100,
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                  //     child: Row(
-                  //       children: [
-                  //         GestureDetector(
-                  //           onTap: () {
-                  //             Get.back();
-                  //           },
-                  //           child: const Icon(Icons.arrow_back_ios_new,
-                  //               size: 18, color: AppColors.white100),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.symmetric(horizontal: 16),
-                  //           child: SizedBox(
-                  //             height: 50,
-                  //             width: 50,
-                  //             child: ClipRRect(
-                  //               borderRadius: BorderRadius.circular(25),
-                  //               child: CachedNetworkImage(
-                  //                 imageUrl:
-                  //                 "https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png",
-                  //                 fit: BoxFit.fill,
-                  //                 errorWidget: (context, url, error) =>
-                  //                 const Icon(Icons.error),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         Text(receiverEmail,style: const TextStyle(color: AppColors.white100),),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   Expanded(
                     child: StreamBuilder<QuerySnapshot>(
-                      stream: controller.getMessage(userId: firebaseAuth.currentUser?.uid??"", otherUserId: receiverId),
+                      stream: controller.getMessage(userId: firebaseAuth.currentUser?.uid??"", otherUserId: data?['uid']??""),
                       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
                         if(snapshot.hasError){
                           Center(child: Text("Error ${snapshot.error}"));
@@ -187,7 +141,7 @@ class _MessageScreenState extends State<MessageScreen> {
                     onTap: () {
                       if (messageController.text == "") {
                       } else {
-                        controller.sendMessage(receiverId: receiverId, message: messageController.text);
+                        controller.sendMessage(receiverId: data?['uid']??'', message: messageController.text);
                         messageController.clear();
                       }
                     },

@@ -20,7 +20,7 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     this.readOnly = false,
 
-    super.key,  this.isPrefixIcon =false
+    super.key,  this.isPrefixIcon =false, this.prefixIcon
   });
 
   final TextEditingController? controller;
@@ -39,7 +39,7 @@ class CustomTextField extends StatefulWidget {
   final double fieldBorderRadius;
   final bool isPassword;
   final bool isPrefixIcon;
-
+  final Widget? prefixIcon;
   final bool readOnly;
 
   @override
@@ -67,12 +67,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
       maxLines: widget.maxLines,
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,
-
       decoration: const InputDecoration().applyDefaults(Theme.of(context).inputDecorationTheme).copyWith(
         hintText: widget.hintText,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: AppColors.pink100
         ),
+        prefixIcon: widget.prefixIcon,
         suffixIcon: widget.isPassword ? GestureDetector(
             onTap: toggle,
             child: Padding(

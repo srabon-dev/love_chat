@@ -27,6 +27,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+        ),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return SingleChildScrollView(
@@ -65,6 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           hintText: "Name".tr,
                           keyboardType: TextInputType.name,
+                          prefixIcon: const Icon(Icons.person),
                           controller: controller.nameController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -89,6 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         CustomTextField(
                           hintText: "Email".tr,
+                          prefixIcon: const Icon(Icons.email),
                           keyboardType: TextInputType.emailAddress,
                           controller: controller.emailController,
                           validator: (value) {
@@ -117,13 +122,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           hintText: "Phone Number".tr,
                           keyboardType: TextInputType.phone,
+                          prefixIcon: const Icon(Icons.phone),
                           controller: controller.phoneController,
                           validator: (value) {
+                            bool mobileValid = RegExp(r'^(?:\+?88|0088)?01[13-9]\d{8}$').hasMatch(value);
                             if (value == null || value.isEmpty) {
                               return "This field can not be empty".tr;
-                            } else if (value.length < 11) {
-                              return "Phone Number should be 11 characters".tr;
-                            } else {
+                            } else if (!value.contains('+8801')) {
+                              return "Please enter a valid Phone Number".tr;
+                            } else if(mobileValid == false){
+                              return "Please enter a valid Phone Number".tr;
+                            }else if(value.length != 14){
+                              return "Please enter a valid Phone Number".tr;
+                            } else{
                               return null;
                             }
                           },
@@ -144,17 +155,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           hintText: "Password".tr,
                           keyboardType: TextInputType.text,
+                          prefixIcon: const Icon(Icons.lock),
                           controller: controller.passwordController,
                           isPassword: true,
                           isPrefixIcon: true,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "This field can not be empty".tr;
-                            } else if (value.length < 6) {
-                              return "Password should be more than 6 characters".tr;
-                            } else {
-                              return null;
+                          validator: (value){
+                            if(value.isEmpty){
+                              return "Please enter your password";
+                            } else if(controller.passwordController.text != controller.confirmPasswordController.text){
+                              return "Password doesn't match";
                             }
+                            return null;
                           },
                         ),
                         const SizedBox(
@@ -173,19 +184,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         CustomTextField(
                           hintText: "Confirm Password".tr,
                           keyboardType: TextInputType.text,
+                          prefixIcon: const Icon(Icons.lock),
                           isPassword: true,
                           controller: controller.confirmPasswordController,
                           isPrefixIcon: true,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "This field can not be empty".tr;
-                            } else if (value.length < 6) {
-                              return "Password should be more than 6 characters".tr;
-                            } else if (value != controller.passwordController.text) {
-                              return "Password do not match".tr;
-                            } else {
-                              return null;
+                            if (value.isEmpty) {
+                              return "Please enter your password";
+                            } else if (!RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                .hasMatch(controller.passwordController.text)) {
+                              return "Please use uppercase,lowercase,spacial character and number";
+                            } else if (value.length < 8) {
+                              return "Please use 8 character long password";
                             }
+
+                            return null;
                           },
                         ),
                         const SizedBox(

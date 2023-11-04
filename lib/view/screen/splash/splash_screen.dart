@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if(firebaseAuth.currentUser!= null){
         Get.offAndToNamed(AppRoute.navBar);
       }else{
-        Get.offAndToNamed(AppRoute.loginScreen);
+        Get.offAndToNamed(AppRoute.onboardingScreen);
       }
     });
     super.initState();
@@ -29,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         backgroundColor: AppColors.pink100,
         body: LayoutBuilder(

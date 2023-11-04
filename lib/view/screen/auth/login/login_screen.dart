@@ -27,6 +27,21 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ElevatedButton(
+              onPressed: () {
+                Get.toNamed(AppRoute.phoneAuth);
+              },
+              child:Text("Login With Phone".tr),
+            ),
+          ),
+        ),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return Center(
@@ -65,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           CustomTextField(
                             hintText: "Email".tr,
                               controller: controller.emailController,
+                              prefixIcon: const Icon(Icons.email),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "This field can not be empty".tr;
@@ -91,16 +107,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           CustomTextField(
                             hintText: "Password".tr,
                             controller: controller.passwordController,
+                            prefixIcon: const Icon(Icons.lock),
                             isPassword: true,
                             isPrefixIcon: true,
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "This field can not be empty".tr;
-                              } else if (value.length < 6) {
-                                return "Password should be more than 6 characters".tr;
-                              } else {
-                                return null;
+                              if (value.isEmpty) {
+                                return "Please enter your password";
+                              } else if (!RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                  .hasMatch(value)) {
+                                return "Please use uppercase,lowercase,spacial character and number";
+                              } else if (value.length < 8) {
+                                return "Please use 8 character long password";
                               }
+                              return null;
                             },
                           ),
                           const SizedBox(
@@ -152,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       );
                     }

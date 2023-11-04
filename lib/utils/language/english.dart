@@ -1,5 +1,4 @@
 
-
 Map<String, String> english = {
 
   //App Name
@@ -33,6 +32,7 @@ Map<String, String> english = {
   //Forget
   "Continue" :   "Continue",
   "Forget Password" :   "Forget Password",
+  "Mail Sent Successfully!" :   "Mail Sent Successfully!",
 
   //Profile
   "Save" : "Save",
@@ -58,4 +58,14 @@ Map<String, String> english = {
 
   //Message Screen
   "write your message" : "write your message",
+
+  //Phone Auth
+  "Login With Phone" : "Login With Phone",
+  "Please enter a valid Phone Number" : "Please enter a valid Phone Number",
+
+  //Otp Screen
+  "Continue" : "Continue",
+
+  //OnboardingScreen Screen
+  "Login With Email" : "Login With Email",
 };

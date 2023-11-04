@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/core/app_route.dart';
 import 'package:chat_app/utils/constants/app_colors.dart';
-import 'package:chat_app/view/widgets/container/custom_container.dart';
+import 'package:chat_app/view/widgets/custom_container/custom_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: ClipRRect(borderRadius: BorderRadius.circular(100),
                           child: CachedNetworkImage(
-                            imageUrl: userData['imageUrl'],
+                            imageUrl: userData['imageUrl']??'https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png',
                             fit: BoxFit.fill,
                             errorWidget: (context, url, error) => const Icon(Icons.person,size: 100,color: AppColors.pink100,),
                           ),
@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomContainer(text: userData['name'], isIcon: false,),
+                      CustomContainer(text: userData['name']?? "Name", isIcon: false,),
                       const SizedBox(
                         height: 12,
                       ),
@@ -93,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomContainer(text: userData['email'], isIcon: false,),
+                      CustomContainer(text: userData['email'] ?? "Email", isIcon: false,),
                       const SizedBox(
                         height: 12,
                       ),
@@ -107,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      CustomContainer(text: userData['phone'], isIcon: false,),
+                      CustomContainer(text: userData['phone'] ?? "Phone", isIcon: false,),
                       const SizedBox(
                         height: 24,
                       ),

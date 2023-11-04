@@ -1,7 +1,6 @@
 import 'package:chat_app/core/app_route.dart';
-import 'package:chat_app/utils/constants/app_colors.dart';
 import 'package:chat_app/utils/constants/app_images.dart';
-import 'package:chat_app/view/widgets/container/custom_container.dart';
+import 'package:chat_app/view/widgets/custom_container/custom_container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

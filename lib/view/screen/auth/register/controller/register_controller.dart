@@ -31,6 +31,7 @@ class RegisterController extends GetxController {
         await firebaseFirestore.collection("user").doc(authServices.currentUser?.uid ?? "").set({
           'name': nameController.text,
           'email': emailController.text.trim(),
+          'imageUrl': "",
           'phone': phoneController.text.trim(),
           'uid': authServices.currentUser?.uid ?? "",
         }).then((value) {

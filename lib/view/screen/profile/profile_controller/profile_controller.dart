@@ -15,6 +15,7 @@ class ProfileController extends GetxController{
   //All Controller
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   XFile? image;
   bool isLoading = false;
 
@@ -61,7 +62,8 @@ class ProfileController extends GetxController{
           {
             'imageUrl' : imageUrl,
             'name' : nameController.text.trim(),
-            'phone' : phoneController.text.trim()
+            'phone' : phoneController.text.trim(),
+            'email' : emailController.text.trim()
           }
       ).then((value){
         isLoading = false;

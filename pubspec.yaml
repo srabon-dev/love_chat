@@ -46,6 +46,7 @@ dependencies:
   flutter_svg: ^2.0.8
   intl: ^0.18.1
   image_picker: ^1.0.4
+  pin_code_fields: ^8.0.1
 
   #FireBase Package
   firebase_core: ^2.20.0

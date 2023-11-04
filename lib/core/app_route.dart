@@ -1,10 +1,13 @@
 import 'package:chat_app/view/screen/auth/forget/forget_screen.dart';
 import 'package:chat_app/view/screen/auth/login/login_screen.dart';
+import 'package:chat_app/view/screen/auth/phone_auth/login/phone_auth.dart';
+import 'package:chat_app/view/screen/auth/phone_auth/otp/otp_screen.dart';
 import 'package:chat_app/view/screen/auth/register/register_screen.dart';
 import 'package:chat_app/view/screen/chat/chat_screen.dart';
 import 'package:chat_app/view/screen/home/home_screen.dart';
 import 'package:chat_app/view/screen/message/message_screen.dart';
 import 'package:chat_app/view/screen/nav/nav_bar.dart';
+import 'package:chat_app/view/screen/onboarding/onboarding_screen.dart';
 import 'package:chat_app/view/screen/profile/edit_profile.dart';
 import 'package:chat_app/view/screen/profile/profile_screen.dart';
 import 'package:chat_app/view/screen/settings/settings_screen.dart';
@@ -23,6 +26,9 @@ class AppRoute{
   static const String navBar = "/nav_bar";
   static const String chatScreen = "/chat_screen";
   static const String messageScreen = "/message_screen";
+  static const String onboardingScreen = "/onboarding_screen";
+  static const String phoneAuth = "/phone_auth";
+  static const String otpScreen = "/otp_screen";
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -34,8 +40,11 @@ class AppRoute{
     GetPage(name: homeScreen, page: () => const HomeScreen()),
     GetPage(name: settingsScreen, page: () => const SettingsScreen()),
     GetPage(name: navBar, page: () => const NavBar()),
-    GetPage(name: chatScreen, page: () => ChatScreen()),
+    GetPage(name: chatScreen, page: () => const ChatScreen()),
     GetPage(name: messageScreen, page: () => const MessageScreen()),
+    GetPage(name: onboardingScreen, page: () => const OnboardingScreen()),
+    GetPage(name: phoneAuth, page: () => const PhoneAuth()),
+    GetPage(name: otpScreen, page: () => const OtpScreen()),
   ];
 }
 

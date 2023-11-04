@@ -12,7 +12,20 @@
           "package_name": "com.srabon_dev.chat_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "157973073886-7mbom25ilk90k0vlql5nk9ve3hh1e67p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.srabon_dev.chat_app",
+            "certificate_hash": "f35d857c5d01f3ca70ac8be051385f1d31324e07"
+          }
+        },
+        {
+          "client_id": "157973073886-bckg3oh5h0tb845k0b2kcbtscdp5r6qt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDuSmIsidQTkGcqx394QehAKL4muJT6Bxo"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157973073886-bckg3oh5h0tb845k0b2kcbtscdp5r6qt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "157973073886-m40i2gj9q3g58vfce75l4fakecvs1dfg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.srabondev.chatApp"
+              }
+            }
+          ]
         }
       }
     }

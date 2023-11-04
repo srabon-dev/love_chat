@@ -58,12 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               data['email']) {
                             return GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoute.messageScreen, arguments: [
-                                  data['email'],
-                                  data['uid'],
-                                  data['name'],
-                                  data['imageUrl']
-                                ]);
+                                Get.toNamed(AppRoute.messageScreen, arguments: data);
                               },
                               child: ListTile(
                                 title: Text(
