@@ -64,8 +64,12 @@ Map<String, String> english = {
   "Please enter a valid Phone Number" : "Please enter a valid Phone Number",
 
   //Otp Screen
-  "Continue" : "Continue",
+  "Deposit" : "Deposit",
+  "Withdrew" : "Withdrew",
 
   //OnboardingScreen Screen
   "Login With Email" : "Login With Email",
+
+  //Change Language
+  "Notification" : "Notification",
 };

@@ -6,15 +6,17 @@ import 'package:get/get.dart';
 class ChatInputField extends StatefulWidget {
   final TextEditingController controller;
   final VoidCallback onTap;
+  final VoidCallback imgOnTap;
 
   const ChatInputField(
-      {super.key, required this.controller, required this.onTap});
+      {super.key, required this.controller, required this.onTap, required this.imgOnTap});
 
   @override
   State<ChatInputField> createState() => _ChatInputFieldState();
 }
 
 class _ChatInputFieldState extends State<ChatInputField> {
+
   @override
   Widget build(BuildContext context) {
     return AnimatedPadding(
@@ -25,17 +27,21 @@ class _ChatInputFieldState extends State<ChatInputField> {
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.white100,width: 2),
           color: AppColors.white100,
+          borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12)),
         ),
-        padding: const EdgeInsets.only(bottom: 12, left: 20, right: 20),
+        padding: const EdgeInsets.only(bottom: 12, left: 20, right: 20,top: 5),
         child: Row(
           children: [
             const Padding(
               padding: EdgeInsets.only(right: 12),
               child: Icon(Icons.camera_alt_outlined,color: AppColors.pink100,),
             ),
-            const Padding(
-              padding: EdgeInsets.only(right: 12),
-              child: Icon(Icons.attach_file,color: AppColors.pink100,),
+            GestureDetector(
+              onTap: widget.imgOnTap,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: Icon(Icons.attach_file,color: AppColors.pink100,),
+              ),
             ),
 
             Expanded(

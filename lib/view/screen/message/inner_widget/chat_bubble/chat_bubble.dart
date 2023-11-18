@@ -5,7 +5,8 @@ import 'custom_shape.dart';
 class ReceivedMessageScreen extends StatelessWidget {
   final String message;
   final bool isMe;
-  const ReceivedMessageScreen({super.key, required this.message, required this.isMe});
+  final String time;
+  const ReceivedMessageScreen({super.key, required this.message, required this.isMe, required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +26,22 @@ class ReceivedMessageScreen extends StatelessWidget {
                     bottomRight: Radius.circular(18),
                   ),
                 ),
-                child: Text(
-                  message,
-                  textAlign: TextAlign.end,
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                    Text(
+                      time,
+                      textAlign: TextAlign.end,
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
                 ),
               ),
             ),

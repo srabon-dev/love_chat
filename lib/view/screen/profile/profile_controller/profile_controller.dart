@@ -23,7 +23,7 @@ class ProfileController extends GetxController{
     isLoading = true;
     update();
     try{
-      Reference storage = FirebaseStorage.instance.ref('/profileImage${firebaseAuth.currentUser?.uid??"errorUserUid"}');
+      Reference storage = FirebaseStorage.instance.ref('/profileImage/${firebaseAuth.currentUser?.uid??"errorUserUid"}');
       UploadTask uploadTask = storage.putFile(File(image!.path));
       await Future.value(uploadTask);
       final imageUrl = await storage.getDownloadURL();

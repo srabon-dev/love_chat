@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/utils/constants/app_colors.dart';
 import 'package:chat_app/utils/constants/app_images.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'inner_widget/chat_bubble/chat_bubble.dart';
 import 'inner_widget/chat_input_field/chat_input_field.dart';
+import 'inner_widget/image_chat_bubble/image_chat_bubble.dart';
 import 'message_controller/chat_controller.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -33,11 +35,14 @@ class _MessageScreenState extends State<MessageScreen> {
   String readTimestamp(int timestamp) {
     var now = DateTime.now();
     var format = DateFormat('HH:mm');
-    var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp);
     var diff = now.difference(date);
     var time = '';
 
-    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
       time = format.format(date);
     } else if (diff.inDays > 0 && diff.inDays < 7) {
       if (diff.inDays == 1) {
@@ -49,7 +54,6 @@ class _MessageScreenState extends State<MessageScreen> {
       if (diff.inDays == 7) {
         time = '${(diff.inDays / 7).floor()} WEEK AGO';
       } else {
-
         time = '${(diff.inDays / 7).floor()} WEEKS AGO';
       }
     }
@@ -126,17 +130,74 @@ class _MessageScreenState extends State<MessageScreen> {
                               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                             Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                             print(data);
-                            String dateTime = readTimestamp(timestampToMilliseconds(data['timeStamp']));
+                            // String dateTime = readTimestamp(timestampToMilliseconds(data['timeStamp']));
 
                             final bool sender = data['senderId'] == firebaseAuth.currentUser?.uid;
-                            return ReceivedMessageScreen(message: data['message']??"", isMe: sender);
+                            return data['isImage']? ImageChatBubble(imageUrl: data['imageUrl'], isMe: sender, time: "dateTime",):ReceivedMessageScreen(message: data['message']??"", isMe: sender, time: "dateTime",);
                           }).toList(),
                           );
                       },
                     ),
                   ),
                   const SizedBox(height: 10,),
-                  ChatInputField(
+                  controller.image != null?Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    decoration: ShapeDecoration(
+                      color: AppColors.white100,
+                      shape:RoundedRectangleBorder(
+                        side: const BorderSide(width: 1, color:AppColors.green100),
+                        borderRadius: BorderRadius.circular(8),
+                      ) ,
+                    ),
+                    child: Padding(
+                        padding: const EdgeInsets.only(right: 16,left: 16),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: 250,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    right: 10,
+                                    bottom: 10,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.file(File(controller.image?.path??"",),fit: BoxFit.contain,)),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: IconButton(onPressed: () {
+                                      controller.removeImage();
+                                    }, icon: const Icon(Icons.cancel,color: Colors.red,size: 22,),),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Row(
+                                    children: [
+                                      SizedBox(width: 10,),
+                                      Text("Image Selected"),
+                                    ],
+                                  ),
+                                  controller.isFileUpload? const SizedBox(width: 20,height: 20,child: CircularProgressIndicator()): IconButton(onPressed: () {
+                                    controller.sendImage(receiverId: data?['uid']??'');
+                                  }, icon: const Icon(Icons.send,color: Colors.red,size: 20,),),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                  ):ChatInputField(
                     controller: messageController,
                     onTap: () {
                       if (messageController.text == "") {
@@ -144,7 +205,9 @@ class _MessageScreenState extends State<MessageScreen> {
                         controller.sendMessage(receiverId: data?['uid']??'', message: messageController.text);
                         messageController.clear();
                       }
-                    },
+                    }, imgOnTap: () {
+                    controller.openPhotoGallery();
+                  },
                   ),
                 ],
               );
@@ -154,8 +217,40 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
     );
   }
-
-  int timestampToMilliseconds(Timestamp timestamp) {
-    return timestamp.millisecondsSinceEpoch;
-  }
 }
+
+/*String readTimestamp(int timestamp) {
+  var now = DateTime.now();
+  var format = DateFormat('HH:mm');
+  var date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  var diff = now.difference(date);
+  var time = '';
+
+  if (diff.inSeconds <= 10) {
+    time = 'just now';
+  } else if (diff.inMinutes <= 1) {
+    time = '${diff.inSeconds}s ago';
+  } else if (diff.inHours <= 1) {
+    time = '${diff.inMinutes}m ago';
+  } else if (date.year == now.year &&
+      date.month == now.month &&
+      date.day == now.day) {
+    time = format.format(date);
+  } else {
+    time = DateFormat('d MMM, yyyy').format(date);
+  }
+
+  return time;
+}
+
+int timestampToMilliseconds(Timestamp timestamp) {
+  return timestamp.millisecondsSinceEpoch;
+}
+
+class Timestamp {
+  int millisecondsSinceEpoch;
+
+  Timestamp.now()
+      : millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
+}*/
+

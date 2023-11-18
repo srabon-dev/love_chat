@@ -31,18 +31,24 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  CustomContainer(
-                    text: "Change password".tr,
-                    isIcon: true,
-                    image: AppImages.lock,
+                  GestureDetector(
+                    onTap: ()=>Get.toNamed(AppRoute.changePasswordScreen),
+                    child: CustomContainer(
+                      text: "Change password".tr,
+                      isIcon: true,
+                      image: AppImages.lock,
+                    ),
                   ),
                   const SizedBox(
                     height: 12,
                   ),
-                  CustomContainer(
-                    text: "Change Language".tr,
-                    isIcon: true,
-                    image: AppImages.translate,
+                  GestureDetector(
+                    onTap: ()=>Get.toNamed(AppRoute.languageScreen),
+                    child: CustomContainer(
+                      text: "Change Language".tr,
+                      isIcon: true,
+                      image: AppImages.translate,
+                    ),
                   ),
                   const SizedBox(
                     height: 12,
@@ -56,24 +62,53 @@ class SettingsScreen extends StatelessWidget {
                     height: 12,
                   ),
                   CustomContainer(
-                    text: "Upgrade Account".tr,
-                    isIcon: true,
-                    image: AppImages.membership,
+                    text: "Support Us".tr,
+                    isIcon: false,
                   ),
                   const SizedBox(
                     height: 12,
                   ),
                   GestureDetector(
-                    onTap: () async{
-                      try {
-                        FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-                        await firebaseAuth.signOut();
-                        Get.snackbar("Success".tr, "LogOut Successful".tr,snackPosition: SnackPosition.BOTTOM);
-                        Get.offAndToNamed(AppRoute.loginScreen);
-                      }catch(error){
-                        Get.snackbar("Success".tr, "Error LogOut".tr,snackPosition: SnackPosition.BOTTOM);
-                      }
-                    },
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('LogOut'),
+                        content:
+                            const Text('Are you sure, do you want to logout?'),
+                        actionsAlignment: MainAxisAlignment.spaceBetween,
+                        actionsPadding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 20),
+                        actions: <Widget>[
+                          SizedBox(
+                            width: (MediaQuery.of(context).size.width / 3),
+                            child: ElevatedButton(
+                              onPressed: () => Get.back(),
+                              child: Text("Cancel".tr),
+                            ),
+                          ),
+                          SizedBox(
+                            width: (MediaQuery.of(context).size.width / 3),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                try {
+                                  FirebaseAuth firebaseAuth =
+                                      FirebaseAuth.instance;
+                                  await firebaseAuth.signOut();
+                                  Get.snackbar(
+                                      "Success".tr, "LogOut Successful".tr,
+                                      snackPosition: SnackPosition.BOTTOM);
+                                  Get.offAndToNamed(AppRoute.loginScreen);
+                                } catch (error) {
+                                  Get.snackbar("Success".tr, "Error LogOut".tr,
+                                      snackPosition: SnackPosition.BOTTOM);
+                                }
+                              },
+                              child: Text("Logout".tr),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     child: CustomContainer(
                       text: "Log Out".tr,
                       isIcon: true,
